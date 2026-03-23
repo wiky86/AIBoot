@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 배움터 — 공공 AI 교육과정 통합 안내</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FAFAF8;
+  --bg-card: #FFFFFF;
+  --bg-surface: #F3F2EE;
+  --bg-tag: #EEEDEA;
+  --text-1: #1A1A18;
+  --text-2: #6B6B66;
+  --text-3: #9C9C96;
+  --border: #E5E4E0;
+  --border-h: #D0CFCB;
+  --accent: #1D6B4F;
+  --accent-l: #E8F5EE;
+  --accent-t: #15503B;
+  --blue: #2563EB;
+  --blue-l: #EFF6FF;
+  --amber: #D97706;
+  --amber-l: #FFFBEB;
+  --red: #DC2626;
+  --red-l: #FEF2F2;
+  --purple: #7C3AED;
+  --purple-l: #F5F3FF;
+  --radius: 10px;
+  --radius-sm: 6px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-lg: 0 4px 12px rgba(0,0,0,0.08);
+  --font-kr: 'Noto Sans KR', sans-serif;
+  --font-en: 'Outfit', sans-serif;
+  --tr: 0.18s cubic-bezier(0.4,0,0.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font-kr);background:var(--bg);color:var(--text-1);line-height:1.6;-webkit-font-smoothing:antialiased;}
+
+/* HEADER */
+.header{position:sticky;top:0;z-index:100;background:rgba(250,250,248,0.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.header-inner{max-width:1200px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;}
+.logo{font-family:var(--font-en);font-weight:700;font-size:19px;color:var(--accent);display:flex;align-items:center;gap:8px;letter-spacing:-0.5px;}
+.logo-icon{width:26px;height:26px;background:var(--accent);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700;}
+.header-right{display:flex;align-items:center;gap:16px;font-size:13px;color:var(--text-3);}
+.header-right .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block;margin-right:3px;}
+.header-right strong{color:var(--text-1);}
+
+/* HERO */
+.hero{max-width:1200px;margin:0 auto;padding:40px 24px 20px;text-align:center;}
+.hero h1{font-size:28px;font-weight:700;line-height:1.35;letter-spacing:-0.5px;margin-bottom:8px;}
+.hero h1 em{font-style:normal;background:linear-gradient(120deg,var(--accent-l) 0%,var(--accent-l) 100%);background-size:100% 38%;background-repeat:no-repeat;background-position:0 88%;color:var(--accent-t);}
+.hero p{font-size:15px;color:var(--text-2);max-width:480px;margin:0 auto;}
+
+/* SEARCH */
+.search-section{max-width:1200px;margin:0 auto;padding:0 24px 16px;}
+.search-bar{display:flex;align-items:center;background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius);padding:0 14px;box-shadow:var(--shadow-sm);transition:border-color var(--tr),box-shadow var(--tr);max-width:560px;margin:0 auto;}
+.search-bar:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px rgba(29,107,79,0.1);}
+.search-icon{color:var(--text-3);flex-shrink:0;}
+.search-bar input{flex:1;border:none;outline:none;padding:11px 10px;font-size:14px;font-family:var(--font-kr);background:transparent;color:var(--text-1);}
+.search-bar input::placeholder{color:var(--text-3);}
+
+/* FILTERS */
+.filters-section{max-width:1200px;margin:0 auto;padding:0 24px 16px;}
+.filter-group{margin-bottom:8px;display:flex;align-items:flex-start;gap:0;flex-wrap:wrap;}
+.filter-label{font-size:11.5px;font-weight:600;color:var(--text-3);min-width:52px;padding:6px 8px 6px 0;text-align:right;flex-shrink:0;letter-spacing:0.3px;}
+.filter-pills{display:flex;flex-wrap:wrap;gap:5px;}
+.pill{padding:5px 12px;border-radius:18px;border:1px solid var(--border);background:var(--bg-card);font-size:12.5px;font-family:var(--font-kr);color:var(--text-2);cursor:pointer;transition:all var(--tr);white-space:nowrap;user-select:none;}
+.pill:hover{border-color:var(--border-h);color:var(--text-1);}
+.pill.active{background:var(--text-1);color:#fff;border-color:var(--text-1);}
+.filter-divider{width:100%;height:1px;background:var(--border);margin:4px 0 8px;opacity:0.6;}
+.show-closed-toggle{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-3);cursor:pointer;user-select:none;padding:4px 0;margin-left:60px;}
+.show-closed-toggle input{accent-color:var(--accent);}
+
+/* RESULTS HEADER */
+.results-section{max-width:1200px;margin:0 auto;padding:0 24px 48px;}
+.results-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.results-count{font-size:13px;color:var(--text-2);}
+.results-count strong{color:var(--text-1);font-weight:600;}
+.sort-select{font-size:12px;font-family:var(--font-kr);padding:5px 8px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg-card);color:var(--text-2);cursor:pointer;outline:none;}
+
+/* COURSE LIST (horizontal rows) */
+.course-list{display:flex;flex-direction:column;gap:6px;}
+.course-row{display:grid;grid-template-columns:72px 1fr auto;align-items:center;gap:0;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;cursor:pointer;transition:all var(--tr);}
+.course-row:hover{border-color:var(--border-h);box-shadow:var(--shadow);transform:translateY(-1px);}
+
+/* Col 1: Status */
+.row-status{text-align:center;}
+.sbadge{font-size:11px;font-weight:600;padding:3px 0;border-radius:4px;display:block;text-align:center;letter-spacing:0.2px;line-height:1.3;}
+.sbadge-open{background:var(--accent-l);color:var(--accent-t);}
+.sbadge-upcoming{background:var(--blue-l);color:var(--blue);}
+.sbadge-closed{background:var(--bg-tag);color:var(--text-3);}
+.row-deadline{font-size:10.5px;color:var(--text-3);margin-top:3px;}
+.row-deadline.urgent{color:var(--red);font-weight:500;}
+
+/* Col 2: Info */
+.row-info{padding:0 16px;min-width:0;}
+.row-title{font-size:14.5px;font-weight:600;line-height:1.35;letter-spacing:-0.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.row-meta{display:flex;align-items:center;gap:8px;margin-top:3px;font-size:12.5px;color:var(--text-2);flex-wrap:wrap;}
+.row-org-badge{font-size:11px;font-weight:600;padding:1px 6px;border-radius:3px;background:var(--bg-surface);color:var(--text-2);}
+
+/* Col 3: Tags */
+.row-tags{display:flex;flex-wrap:wrap;gap:5px;justify-content:flex-end;min-width:0;}
+.t{font-size:11px;font-weight:500;padding:3px 9px;border-radius:var(--radius-sm);white-space:nowrap;}
+.t-cost{background:var(--accent-l);color:var(--accent-t);}
+.t-cost-paid{background:var(--amber-l);color:var(--amber);}
+.t-dur{background:var(--bg-tag);color:var(--text-2);}
+.t-field{background:var(--blue-l);color:var(--blue);}
+.t-level{background:var(--purple-l);color:var(--purple);}
+.t-mode{background:var(--bg-surface);color:var(--text-2);}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.32);backdrop-filter:blur(4px);z-index:200;display:none;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.active{display:flex;}
+@keyframes slideUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.modal{background:var(--bg-card);border-radius:16px;max-width:600px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.15);animation:slideUp 0.22s ease;}
+.m-header{padding:22px 22px 14px;border-bottom:1px solid var(--border);}
+.m-header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.m-close{width:30px;height:30px;border:none;background:var(--bg-surface);border-radius:50%;cursor:pointer;font-size:15px;color:var(--text-2);display:flex;align-items:center;justify-content:center;transition:background var(--tr);}
+.m-close:hover{background:var(--border);}
+.m-title{font-size:19px;font-weight:700;line-height:1.35;letter-spacing:-0.3px;}
+.m-org{font-size:13px;color:var(--text-2);margin-top:3px;}
+.m-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:14px 22px;border-bottom:1px solid var(--border);}
+.m-metric{text-align:center;padding:10px 6px;background:var(--bg-surface);border-radius:8px;}
+.m-metric-label{font-size:11px;color:var(--text-3);margin-bottom:3px;}
+.m-metric-value{font-size:16px;font-weight:600;}
+.m-metric-value.free{color:var(--accent);}
+.m-body{padding:18px 22px;}
+.m-sect{margin-bottom:16px;}
+.m-sect-title{font-size:11.5px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;}
+.m-sect p{font-size:13.5px;line-height:1.7;color:var(--text-2);}
+.m-row{display:flex;gap:8px;margin-bottom:5px;font-size:13.5px;}
+.m-row .ml{color:var(--text-3);min-width:76px;flex-shrink:0;}
+.m-row .mv{color:var(--text-1);}
+.m-footer{padding:14px 22px 22px;}
+.cta{display:block;width:100%;padding:13px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;font-family:var(--font-kr);cursor:pointer;transition:all var(--tr);text-align:center;text-decoration:none;}
+.cta:hover{background:#165C42;transform:translateY(-1px);box-shadow:var(--shadow);}
+.cta.off{background:var(--bg-tag);color:var(--text-3);cursor:default;pointer-events:none;}
+
+/* EMPTY */
+.empty{text-align:center;padding:48px 20px;color:var(--text-2);}
+.empty h3{font-size:16px;font-weight:600;color:var(--text-1);margin-bottom:4px;}
+
+/* FOOTER */
+.footer{max-width:1200px;margin:0 auto;padding:20px 24px;border-top:1px solid var(--border);text-align:center;font-size:12px;color:var(--text-3);}
+
+@media(max-width:768px){
+  .hero h1{font-size:22px;}
+  .hero{padding:28px 20px 16px;}
+  .course-row{grid-template-columns:64px 1fr;gap:0;}
+  .row-tags{display:none;}
+  .filter-label{min-width:40px;font-size:11px;}
+  .header-right{font-size:12px;}
+  .modal{border-radius:12px;}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="logo"><div class="logo-icon">A</div>AI 배움터</div>
+    <div class="header-right">
+      <span><span class="dot"></span>모집중 <strong id="hOpen">0</strong>개</span>
+      <span>전체 <strong id="hTotal">0</strong>개 과정</span>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>AI 배우고 싶은데, <em>어디서 시작하지?</em></h1>
+  <p>정부·대학이 지원하는 무료/저비용 AI 교육과정을 한눈에 비교하고, 바로 신청하세요.</p>
+</section>
+
+<section class="search-section">
+  <div class="search-bar">
+    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+    <input type="text" id="searchInput" placeholder="과정명, 키워드, 기관명으로 검색...">
+  </div>
+</section>
+
+<section class="filters-section" id="filtersSection"></section>
+
+<section class="results-section">
+  <div class="results-header">
+    <div class="results-count" id="rCount"></div>
+    <select class="sort-select" id="sortSel">
+      <option value="deadline">마감 임박순</option>
+      <option value="latest">최신 등록순</option>
+      <option value="name">이름순</option>
+    </select>
+  </div>
+  <div class="course-list" id="courseList"></div>
+</section>
+
+<div class="modal-overlay" id="mo"><div class="modal" id="modal"></div></div>
+
+<footer class="footer">AI 배움터 · 공공 AI 교육과정 통합 안내 서비스<br>정보 오류 제보: aibaeumteo@gmail.com · 마지막 업데이트: 2026.03.23</footer>
+
+<script>
+// ===== FILTER DEFINITIONS (7개 구분자) =====
+const filterDefs = [
+  { key:'target', label:'대상', type:'single', options:['전체','대학생','취준생','재직자','비전공자','누구나'], default:'전체' },
+  { key:'cost', label:'비용', type:'multi', options:['완전 무료','국비지원','유료 50만↓','유료 50만↑'] },
+  { key:'field', label:'분야', type:'multi', options:['AI 기초','생성AI/LLM','데이터 분석','컴퓨터비전','자연어처리','MLOps','AI 비즈니스','AI+X 융합'] },
+  { key:'duration', label:'기간', type:'multi', options:['1일~1주','2~4주','1~3개월','4~6개월','6개월 이상'] },
+  { key:'level', label:'수준', type:'multi', options:['입문','초급','중급','고급'] },
+  { key:'mode', label:'방식', type:'multi', options:['온라인','오프라인-서울','오프라인-경기','오프라인-기타','온·오프 병행'] },
+  { key:'status', label:'모집', type:'single', options:['전체','모집중','모집예정'], default:'전체', extra:'showClosed' },
+];
+
+// ===== COURSE DATA =====
+const courses = [
+  { id:1, name:"2026 AI·SW 마에스트로 제17기", org:"과기정통부", operator:"정보통신기획평가원(IITP)", program:"SW마에스트로",
+    target:["대학생","취준생","누구나"], cost:"완전 무료", costDetail:"완전 무료 (활동비 월 100만 원 지급)",
+    duration:"6개월 이상", durationText:"7개월", durationDetail:"2026.6 ~ 2026.12",
+    field:["AI 기초","생성AI/LLM"], level:"중급", mode:"오프라인-서울", modeText:"오프라인 (서울)",
+    status:"open", recruitStart:"2026-03-05", recruitEnd:"2026-05-22",
+    qualification:"만 19세 이상, SW 개발 역량 보유자", benefit:"활동비 월 100만 원, 클라우드 크레딧, 해외 연수",
+    description:"미래를 선도할 AI·SW 명장을 양성하는 과정. 프로젝트 중심 교육과 현업 멘토링 제공.", url:"https://event.wanted.co.kr/swmaestro17_seoul" },
+  { id:2, name:"AI 서비스 개발자 양성과정 (Search, 객체탐지, 판독)", org:"고용노동부", operator:"K-디지털 트레이닝 훈련기관", program:"K-디지털 트레이닝",
+    target:["취준생","비전공자","누구나"], cost:"국비지원", costDetail:"자부담 약 40만 원 (내일배움카드)",
+    duration:"4~6개월", durationText:"6개월", durationDetail:"2026.5.18 ~ 2026.11.10 (960시간)",
+    field:["컴퓨터비전","데이터 분석"], level:"입문", mode:"오프라인-서울", modeText:"오프라인 (서울)",
+    status:"open", recruitStart:"2026-03-05", recruitEnd:"2026-05-22",
+    qualification:"국민내일배움카드 소지자", benefit:"매월 훈련장려금 지급, 취업 컨설팅, 면접 스피치 지도",
+    description:"비전공자도 참여 가능한 실무 중심 AI 개발 교육. 데이터 수집·분석부터 추천 시스템 구축까지.", url:"https://www.hrd.go.kr" },
+  { id:3, name:"재직자 AI·디지털 30+ 집중캠프", org:"교육부", operator:"국가평생교육진흥원 (38개교)", program:"재직자 AI·디지털 집중과정",
+    target:["재직자"], cost:"완전 무료", costDetail:"완전 무료 (대학 총장 명의 디지털 배지 발급)",
+    duration:"2~4주", durationText:"4주", durationDetail:"대학별 상이 (2026년 하반기~)",
+    field:["AI 비즈니스","생성AI/LLM"], level:"입문", mode:"온·오프 병행", modeText:"온·오프 병행 (전국 38개교)",
+    status:"upcoming", recruitStart:"2026-08-01", recruitEnd:"2026-09-30",
+    qualification:"재직자 등 성인학습자", benefit:"대학 총장 명의 디지털 배지 발급, 프로젝트 기반 학습",
+    description:"대학의 전문성을 활용한 4주 단기 집중 캠프. 퇴근 후·주말을 활용해 AI·디지털 역량을 키울 수 있음.", url:"https://www.kmooc.kr" },
+  { id:4, name:"2026 코디세이 AI 올인원 제1기", org:"과기정통부", operator:"이노베이션아카데미", program:"SW중심대학",
+    target:["취준생","누구나"], cost:"완전 무료", costDetail:"완전 무료",
+    duration:"4~6개월", durationText:"6개월", durationDetail:"2026년 상반기",
+    field:["AI 기초","생성AI/LLM","데이터 분석"], level:"입문", mode:"오프라인-서울", modeText:"오프라인 (서울)",
+    status:"closed", recruitStart:"2026-03-03", recruitEnd:"2026-03-23",
+    qualification:"만 18세 이상 누구나", benefit:"교육비 전액 지원, 실습 환경 제공",
+    description:"이노베이션아카데미에서 운영하는 AI 올인원 교육 과정. 기초부터 실전 프로젝트까지.", url:"https://www.swuniv.kr" },
+  { id:5, name:"첨단산업 AI 부트캠프 (전국 37개교)", org:"교육부", operator:"한국산업기술진흥원 (대학별 운영)", program:"첨단산업 인재양성 부트캠프",
+    target:["대학생"], cost:"완전 무료", costDetail:"완전 무료 (재학생 대상)",
+    duration:"1~3개월", durationText:"3~6개월", durationDetail:"대학별 상이 (2026년 상반기~)",
+    field:["AI 기초","AI+X 융합"], level:"초급", mode:"오프라인-기타", modeText:"오프라인 (전국 37개교)",
+    status:"open", recruitStart:"2026-02-01", recruitEnd:"2026-04-30",
+    qualification:"참여 대학 재학생", benefit:"프로젝트 포트폴리오, 기업 연계 기회",
+    description:"대학과 기업이 함께하는 AI 부트캠프. 37개 대학에서 지역별 운영, AI 융합과정 10개교 포함.", url:"https://www.moe.go.kr" },
+  { id:6, name:"생성AI 선도인재양성 사업", org:"과기정통부", operator:"IITP", program:"생성AI선도인재양성",
+    target:["대학생"], cost:"완전 무료", costDetail:"완전 무료 (대학원 과정)",
+    duration:"6개월 이상", durationText:"1년 이상", durationDetail:"2026년~",
+    field:["생성AI/LLM"], level:"고급", mode:"오프라인-기타", modeText:"오프라인 (선정 대학)",
+    status:"upcoming", recruitStart:"2026-05-01", recruitEnd:"2026-06-30",
+    qualification:"대학(원)생, AI 연구 역량 보유자", benefit:"연구비 지원, 생성AI 기관 공동연구",
+    description:"국내 대학(원)과 생성AI 기관 간 공동연구를 통해 핵심 고급 인재를 양성하는 사업.", url:"https://ezone.iitp.kr" },
+  { id:7, name:"삼성 청년 SW 아카데미 (SSAFY) 14기", org:"삼성전자", operator:"삼성전자", program:"SSAFY",
+    target:["취준생","비전공자","누구나"], cost:"완전 무료", costDetail:"완전 무료 (월 100만 원 교육지원금)",
+    duration:"6개월 이상", durationText:"12개월", durationDetail:"2026년 하반기",
+    field:["AI 기초","데이터 분석"], level:"입문", mode:"오프라인-기타", modeText:"오프라인 (서울,대전,광주,구미,부울경)",
+    status:"upcoming", recruitStart:"2026-05-15", recruitEnd:"2026-06-15",
+    qualification:"만 29세 이하, 미취업자", benefit:"월 100만 원 교육지원금, 삼성 계열사 취업 연계",
+    description:"삼성전자가 운영하는 대표적인 무료 SW 교육 프로그램. AI 트랙 포함.", url:"https://www.ssafy.com" },
+  { id:8, name:"네이버 부스트캠프 AI Tech 8기", org:"네이버 커넥트재단", operator:"네이버 커넥트재단", program:"부스트캠프",
+    target:["취준생","대학생","누구나"], cost:"완전 무료", costDetail:"완전 무료",
+    duration:"4~6개월", durationText:"5개월", durationDetail:"2026년 하반기",
+    field:["생성AI/LLM","자연어처리","컴퓨터비전"], level:"중급", mode:"온라인", modeText:"온라인",
+    status:"upcoming", recruitStart:"2026-06-01", recruitEnd:"2026-07-15",
+    qualification:"파이썬 기초 및 머신러닝 기본 이해 필요", benefit:"네이버 계열사 취업 연계, 멘토링",
+    description:"네이버가 운영하는 AI 전문 부스트캠프. 실무 프로젝트 중심의 집중 교육.", url:"https://boostcamp.connect.or.kr" },
+  { id:9, name:"AI·디지털 묶음강좌 (K-MOOC 온라인)", org:"교육부", operator:"국가평생교육진흥원", program:"재직자 AI·디지털 집중과정",
+    target:["재직자","누구나"], cost:"완전 무료", costDetail:"완전 무료 (온라인)",
+    duration:"2~4주", durationText:"2~4주", durationDetail:"수시 운영",
+    field:["AI 비즈니스","데이터 분석"], level:"입문", mode:"온라인", modeText:"온라인",
+    status:"open", recruitStart:"2026-01-01", recruitEnd:"2026-12-31",
+    qualification:"누구나 수강 가능", benefit:"대학 총장 명의 디지털 배지 발급",
+    description:"3개 내외 온라인 강좌를 묶어 직무에 필요한 AI·디지털 핵심 역량을 이수하는 과정.", url:"https://www.kmooc.kr" },
+  { id:10, name:"AID 전환 중점 전문대학 AI 과정 (24개교)", org:"교육부", operator:"전국 24개 전문대학", program:"AID 전환 중점 전문대학",
+    target:["대학생","재직자","누구나"], cost:"완전 무료", costDetail:"완전 무료 (야간·주말 과정 포함)",
+    duration:"1~3개월", durationText:"1~3개월", durationDetail:"2026년 하반기~",
+    field:["AI 기초","AI+X 융합"], level:"입문", mode:"온·오프 병행", modeText:"온·오프 병행 (전국 24개교)",
+    status:"upcoming", recruitStart:"2026-07-01", recruitEnd:"2026-08-31",
+    qualification:"재학생, 지역주민, 재직자", benefit:"전문대학 실습 인프라 활용, 생성AI 계정 제공",
+    description:"전문대학을 지역 AI 교육 거점으로 육성. 재학생뿐 아니라 지역주민·재직자도 참여 가능.", url:"https://www.moe.go.kr" },
+  { id:11, name:"AI 혁신대학원 (10개교 신규 선정)", org:"과기정통부", operator:"IITP", program:"인공지능혁신대학원",
+    target:["대학생"], cost:"완전 무료", costDetail:"완전 무료 (석·박사 과정, 연 30억 원/교 지원)",
+    duration:"6개월 이상", durationText:"2년 이상", durationDetail:"2026년~",
+    field:["생성AI/LLM","컴퓨터비전","자연어처리","MLOps"], level:"고급", mode:"오프라인-기타", modeText:"오프라인 (선정 10개교)",
+    status:"upcoming", recruitStart:"2026-06-01", recruitEnd:"2026-08-31",
+    qualification:"대학원 진학 예정자, AI 연구 역량 보유", benefit:"연구비, 장비 지원, 산학 프로젝트",
+    description:"2026년 10개 AI 혁신대학원을 신규 선정. 대학당 연 30억 원 지원.", url:"https://ezone.iitp.kr" },
+  { id:12, name:"SKT AI Fellowship 7기", org:"SK텔레콤", operator:"SK텔레콤", program:"AI Fellowship",
+    target:["대학생"], cost:"완전 무료", costDetail:"완전 무료 (연구 지원금 제공)",
+    duration:"4~6개월", durationText:"6개월", durationDetail:"2026년 하반기",
+    field:["생성AI/LLM","자연어처리"], level:"고급", mode:"온·오프 병행", modeText:"온·오프 병행",
+    status:"upcoming", recruitStart:"2026-05-01", recruitEnd:"2026-06-30",
+    qualification:"AI/ML 연구 경험 보유 대학(원)생", benefit:"연구비, SKT 멘토링, 논문 발표 지원",
+    description:"SKT가 운영하는 AI 연구 인재 양성 프로그램. 실제 연구 프로젝트 수행.", url:"https://www.sktai.com" },
+];
+
+// ===== STATE =====
+let filters = {};
+let showClosed = false;
+let searchQ = '';
+
+function initFilters() {
+  filterDefs.forEach(f => {
+    filters[f.key] = f.default || null;
+  });
+}
+initFilters();
+
+// ===== RENDER FILTERS =====
+function renderFilters() {
+  const sec = document.getElementById('filtersSection');
+  let html = '';
+  filterDefs.forEach((fd, gi) => {
+    html += `<div class="filter-group">`;
+    html += `<span class="filter-label">${fd.label}</span>`;
+    html += `<div class="filter-pills">`;
+    fd.options.forEach(opt => {
+      const isActive = fd.type === 'single' ? filters[fd.key] === opt : filters[fd.key] === opt;
+      html += `<button class="pill ${isActive ? 'active' : ''}" data-group="${fd.key}" data-type="${fd.type}" data-value="${opt}">${opt}</button>`;
+    });
+    html += `</div>`;
+    if (fd.extra === 'showClosed') {
+      html += `<label class="show-closed-toggle"><input type="checkbox" id="showClosedCb" ${showClosed ? 'checked' : ''}> 마감 포함</label>`;
+    }
+    html += `</div>`;
+    if (gi === 0) html += `<div class="filter-divider"></div>`;
+  });
+  sec.innerHTML = html;
+
+  // Bind events
+  sec.querySelectorAll('.pill').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const g = btn.dataset.group;
+      const t = btn.dataset.type;
+      const v = btn.dataset.value;
+      if (t === 'single') {
+        filters[g] = v;
+      } else {
+        filters[g] = filters[g] === v ? null : v;
+      }
+      renderFilters();
+      renderList();
+    });
+  });
+  const cb = document.getElementById('showClosedCb');
+  if (cb) cb.addEventListener('change', e => { showClosed = e.target.checked; renderList(); });
+}
+
+// ===== FILTER LOGIC =====
+function getStatusLabel(c) {
+  if (c.status === 'closed') return '마감';
+  const today = new Date().toISOString().split('T')[0];
+  if (c.recruitEnd < today) return '마감';
+  if (c.recruitStart > today) return '모집예정';
+  return '모집중';
+}
+
+function matchFilter(c) {
+  const sl = getStatusLabel(c);
+  // Status filter
+  const sf = filters.status;
+  if (sf && sf !== '전체') {
+    if (sf === '모집중' && sl !== '모집중') return false;
+    if (sf === '모집예정' && sl !== '모집예정') return false;
+  }
+  if (!showClosed && sl === '마감') return false;
+
+  // Target
+  const tf = filters.target;
+  if (tf && tf !== '전체' && !c.target.includes(tf)) return false;
+
+  // Cost
+  const cf = filters.cost;
+  if (cf && c.cost !== cf) return false;
+
+  // Field
+  const ff = filters.field;
+  if (ff && !c.field.includes(ff)) return false;
+
+  // Duration
+  const df = filters.duration;
+  if (df && c.duration !== df) return false;
+
+  // Level
+  const lf = filters.level;
+  if (lf && c.level !== lf) return false;
+
+  // Mode
+  const mf = filters.mode;
+  if (mf && c.mode !== mf) return false;
+
+  // Search
+  if (searchQ) {
+    const h = (c.name + c.org + c.operator + c.program + c.field.join(' ') + c.target.join(' ') + c.level + c.mode).toLowerCase();
+    if (!h.includes(searchQ.toLowerCase())) return false;
+  }
+  return true;
+}
+
+function sortList(list) {
+  const s = document.getElementById('sortSel').value;
+  return [...list].sort((a,b) => {
+    if (s === 'deadline') {
+      const da = getDDay(a.recruitEnd) ?? 9999;
+      const db = getDDay(b.recruitEnd) ?? 9999;
+      return da - db;
+    }
+    if (s === 'latest') return b.id - a.id;
+    return a.name.localeCompare(b.name, 'ko');
+  });
+}
+
+function getDDay(d) { if (!d) return null; return Math.ceil((new Date(d)-new Date())/(864e5)); }
+
+// ===== RENDER LIST =====
+function renderList() {
+  const filtered = sortList(courses.filter(matchFilter));
+  const openCount = courses.filter(c => getStatusLabel(c) === '모집중').length;
+  document.getElementById('hTotal').textContent = courses.length;
+  document.getElementById('hOpen').textContent = openCount;
+  document.getElementById('rCount').innerHTML = `검색 결과 <strong>${filtered.length}</strong>개 과정`;
+
+  const el = document.getElementById('courseList');
+  if (!filtered.length) {
+    el.innerHTML = `<div class="empty"><h3>조건에 맞는 과정이 없습니다</h3><p>필터를 조정하거나 검색어를 변경해보세요.</p></div>`;
+    return;
+  }
+  el.innerHTML = filtered.map(c => {
+    const sl = getStatusLabel(c);
+    const sc = sl === '모집중' ? 'sbadge-open' : sl === '모집예정' ? 'sbadge-upcoming' : 'sbadge-closed';
+    const dd = getDDay(c.recruitEnd);
+    let dlText = '';
+    let urg = '';
+    if (sl === '모집중' && dd !== null) {
+      dlText = dd <= 0 ? '오늘 마감' : `D-${dd}`;
+      if (dd <= 7) urg = 'urgent';
+    } else if (sl === '모집예정') {
+      dlText = c.recruitStart.slice(5).replace('-','/') + ' 시작';
+    }
+    const costClass = c.cost === '완전 무료' ? 't-cost' : 't-cost-paid';
+    const costLabel = c.cost === '완전 무료' ? '무료' : c.cost;
+    return `<div class="course-row" onclick="openM(${c.id})">
+      <div class="row-status">
+        <span class="sbadge ${sc}">${sl}</span>
+        <div class="row-deadline ${urg}">${dlText}</div>
+      </div>
+      <div class="row-info">
+        <div class="row-title">${c.name}</div>
+        <div class="row-meta">
+          <span class="row-org-badge">${c.org}</span>
+          <span>${c.program}</span>
+          <span style="color:var(--text-3)">·</span>
+          <span>${c.modeText}</span>
+        </div>
+      </div>
+      <div class="row-tags">
+        <span class="t ${costClass}">${costLabel}</span>
+        <span class="t t-dur">${c.durationText}</span>
+        ${c.field.slice(0,2).map(f=>`<span class="t t-field">${f}</span>`).join('')}
+        <span class="t t-level">${c.level}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ===== MODAL =====
+function openM(id) {
+  const c = courses.find(x=>x.id===id);
+  if (!c) return;
+  const sl = getStatusLabel(c);
+  const dd = getDDay(c.recruitEnd);
+  const isOpen = sl === '모집중';
+  const sc = sl === '모집중' ? 'sbadge-open' : sl === '모집예정' ? 'sbadge-upcoming' : 'sbadge-closed';
+
+  document.getElementById('modal').innerHTML = `
+    <div class="m-header">
+      <div class="m-header-top">
+        <span class="sbadge ${sc}">${sl}${isOpen && dd > 0 ? ' · D-'+dd : ''}</span>
+        <button class="m-close" onclick="closeM()">✕</button>
+      </div>
+      <div class="m-title">${c.name}</div>
+      <div class="m-org">${c.org} · ${c.operator}</div>
+    </div>
+    <div class="m-metrics">
+      <div class="m-metric"><div class="m-metric-label">비용</div><div class="m-metric-value ${c.cost==='완전 무료'?'free':''}">${c.cost==='완전 무료'?'무료':c.cost}</div></div>
+      <div class="m-metric"><div class="m-metric-label">기간</div><div class="m-metric-value">${c.durationText}</div></div>
+      <div class="m-metric"><div class="m-metric-label">방식</div><div class="m-metric-value" style="font-size:14px">${c.modeText}</div></div>
+    </div>
+    <div class="m-body">
+      <div class="m-sect"><div class="m-sect-title">과정 소개</div><p>${c.description}</p></div>
+      <div class="m-sect"><div class="m-sect-title">상세 정보</div>
+        <div class="m-row"><span class="ml">지원 자격</span><span class="mv">${c.qualification}</span></div>
+        <div class="m-row"><span class="ml">교육 기간</span><span class="mv">${c.durationDetail}</span></div>
+        <div class="m-row"><span class="ml">실제 비용</span><span class="mv">${c.costDetail}</span></div>
+        <div class="m-row"><span class="ml">모집 기간</span><span class="mv">${c.recruitStart.slice(5).replace('-','.')} ~ ${c.recruitEnd.slice(5).replace('-','.')}</span></div>
+        <div class="m-row"><span class="ml">수준</span><span class="mv">${c.level}</span></div>
+        <div class="m-row"><span class="ml">분야</span><span class="mv">${c.field.join(', ')}</span></div>
+        <div class="m-row"><span class="ml">대상</span><span class="mv">${c.target.join(', ')}</span></div>
+      </div>
+      ${c.benefit ? `<div class="m-sect"><div class="m-sect-title">혜택</div><p>${c.benefit}</p></div>` : ''}
+    </div>
+    <div class="m-footer">
+      <a href="${c.url}" target="_blank" rel="noopener" class="cta ${sl==='마감'?'off':''}">
+        ${sl==='마감'?'모집이 마감되었습니다':'공식 신청 페이지로 이동 →'}
+      </a>
+    </div>`;
+  document.getElementById('mo').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeM() { document.getElementById('mo').classList.remove('active'); document.body.style.overflow=''; }
+document.getElementById('mo').addEventListener('click', e => { if (e.target === e.currentTarget) closeM(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeM(); });
+
+// Search
+document.getElementById('searchInput').addEventListener('input', e => { searchQ = e.target.value.trim(); renderList(); });
+document.getElementById('sortSel').addEventListener('change', renderList);
+
+// Init
+renderFilters();
+renderList();
+</script>
+</body>
+</html>
